@@ -38,8 +38,7 @@ html{scroll-padding-top: 160px;}
 :root{
 	--color-dark: #333B49;
 	--color-mid: #333B49;
-	/* --color-light: #e1f1ff; */
-	/* --color-light: #d9e7f3; */
+	--color-mid-light: #8195b8;
 	--color-light: #d2def3;
 	--dark-border: #303844;
 	--highlight: #ec0951;
@@ -131,13 +130,13 @@ nav input:checked ~ label>#close {display:block;}
 
 nav label {color: #ffffff;cursor: pointer;user-select: none;height:24px;width:24px}
 nav label>svg {width: 24px;fill:#ffffff;}
-nav label>svg:hover {fill:var(--dark-border);}
+nav label>svg:hover {fill:var(--color-mid-light);}
 nav label>#close{display: none;}
 
 .nav__list {
 	display: none;
 	width: 100%;
-	grid-template-columns: repeat(auto-fit, 1rem);
+	grid-template-columns: repeat(auto-fit, 1.25rem);
 	justify-items: center;
 	justify-content: space-between;
 	list-style-type: none;
@@ -152,7 +151,7 @@ nav ul a{
 	display: block;
 	text-decoration: none;
 	color: #000000;
-	font-size: .5rem;
+	font-size: 13px;
 	padding: .25rem;
 }
 
@@ -170,7 +169,8 @@ aside {
 }
 
 #info{
-	width: 30rem;
+	/* width: 30rem; */
+	width: 65ch;
 	margin: 0 auto;
 	position:relative;
 	list-style-type: none;
@@ -222,7 +222,8 @@ b {
 main {
 	grid-area: Main;
 	margin: 160px auto 50px;
-	width: clamp(375px, 30rem, 100vw);
+	/* width: clamp(375px, 30rem, 100vw); */
+	width: 65ch;
 	max-width: 100%;
 }
 
@@ -233,8 +234,13 @@ section {
 	/* border: 1.5px solid var(--dark-border) */
 }
 
+h3 {
+	/* text-align: center; */
+	margin-bottom: 1rem;
+}
+
 p {
-	line-height: 1.4rem;
+	line-height: 1.6rem;
 	position: relative;
 }
 
@@ -263,7 +269,7 @@ p:hover::before {
 }
 
 p+p {
-	margin-top: .5rem;
+	margin-top: 1rem;
 }
 
 section+section {
