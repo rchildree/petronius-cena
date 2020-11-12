@@ -48,7 +48,7 @@ html{scroll-padding-top: 160px;}
 body {
 	/* background-image: url(/images/graypebbled.png); */
 	/* background-color: #e3e3f0; */
-	background-color: rgb(242, 239, 233);
+	background-color: #F3F4F3;
 	margin: 0;
 	display: grid;
 	grid-template-columns: 210px 1fr;
