@@ -1,0 +1,422 @@
+/* ---------------------------- FONT IMPORTS -------------------------------------------------- */
+@font-face {
+	font-family: 'EBGaramond';
+	src: url('../fonts/EBGaramond-VAR.ttf') format('truetype-variations');
+	font-weight: 450;
+	font-style: normal;
+}
+   
+@font-face {
+	font-family: 'EBGaramond';
+	src: url('../fonts/EBGaramond-Italic-VAR.ttf') format('truetype-variations');
+	font-weight: 450;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'EBGaramond';
+	src: url('../fonts/EBGaramond-Bold.otf') format('opentype');
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Neohellenic';
+	src: url('../fonts/Neohellenic-Regular.otf') format('opentype');
+	font-weight: 400;
+}
+
+/* ---------------------------- HOUSEKEEPING -------------------------------------------------- */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'EBGaramond', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI';
+	font-size: clamp(20px, 1.9vw, 40px);
+	font-weight: 450;
+	font-feature-settings: "liga";
+}
+
+html{scroll-padding-top: 45vh;}
+
+:root{
+	--bg-gray: #f1f0f0;
+	--title-blue: #1a4a58;
+	--title-red: #c52f36;
+	--info-lightblue: #d4eaf3;
+	--info-lightred: #FDF6F6;
+	--dark-blue: #333b49;
+	--highlight: #ec0951;
+	
+	--color-mid: #493346;
+	--color-mid-light: #8195b8;
+	--color-light: #d2def3;
+	--dark-border: #303844;
+
+	--furple: #9dd6e1;
+	/* --ros-dkblue: #0769DD;  */
+	--ros-dkblue: #07b9dd; 
+	/* --ros-dkblue: #333b49;  */
+	/* --ros-dkblue: #002241; */
+	/* --ros-liblue: #edf0f2; */
+	--ros-liblue: #f1efec;
+
+	--width-prose: 65ch;
+	--width-poetry: 55ch;
+	--width-longline: 70ch;
+
+	--sidebar-width: 224px;
+}
+
+body {
+	background-color: var(--ros-liblue);
+	overflow-x:hidden;
+	display: grid;
+	grid-template-columns: var(--sidebar-width) 1fr;
+	grid-template-rows: 1fr;
+	gap: 2rem 0;
+	grid-template-areas: "Sidebar Main";
+}
+
+/* ---------------------------- HEADER -------------------------------------------------------- */
+header {
+	grid-area: Sidebar;
+	position: fixed;
+	top:0;
+	width: var(--sidebar-width);
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background-color: var(--ros-dkblue);
+}
+/* ---------------------------- Menu ----------------------------------------------------------- */
+nav {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	align-items: flex-start;
+}
+
+nav hgroup {width: calc(100% - 24px)}
+
+nav hgroup h1, h2 {
+	color: #f3f3f3;
+	font-size: 21px;
+	line-height: 19px;
+	font-weight: 450;
+	font-feature-settings: "onum", "pnum";
+}
+
+nav hgroup h1 {
+	font-feature-settings: "c2sc", "smcp";
+	letter-spacing: .05em;
+}
+nav hgroup h2 {
+	line-height: 28px;
+}
+nav hgroup span {
+	font-size: inherit;
+}
+
+nav object {
+	margin-top: auto;
+	width: 100%;
+}
+
+nav input {display: none;}
+
+nav input:checked ~ .nav__list {display:grid;}
+nav input:checked ~ label>#menu {display:none;}
+nav input:checked ~ label>#close {display:block;}
+
+nav label {
+	cursor: pointer;
+	user-select: none;
+	height: 24px;
+	font-size: 21px;
+	margin-left:auto;
+}
+nav label>svg {
+	position:relative;
+	top:0;
+	height:24px;}
+nav label>#close{display: none;}
+
+nav label > svg:hover {opacity: .5;}
+
+.nav__list {
+	display: none;
+	width: 100%;
+	max-height: 75vh;
+	grid-template-columns: repeat(auto-fit, .75rem);
+	justify-items: center;
+	justify-content: space-between;
+	list-style-type: none;
+	background-color: #ffffff;
+	/* border-radius: 5px; */
+	margin: 20px 0 15px;
+	padding: 10px;
+	column-gap: 10px;
+	/*overflow-y: scroll;*/
+}
+
+nav ul a{
+	display: block;
+	text-decoration: none;
+	/*font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI';*/
+	font-feature-settings: "tnum";
+	color: #000000;
+	font-size: 14px !important;
+	padding: .25rem;
+}
+
+nav ul a:hover {
+	font-weight: 700;
+	color: var(--highlight);
+}
+
+/* ---------------------------- PARSING --------------------------------------------------------- */
+aside {
+	position: sticky; top: 0; left: var(--sidebar-width);
+	width: calc(100vw - var(--sidebar-width));
+	z-index: 5;
+	padding: 25px 35px 0;
+	background-color: var(--ros-liblue);
+}
+
+#info{
+	width: var(--width-prose);
+	margin: 0 auto;
+	padding-bottom:30px;
+	position: relative;
+	list-style-type: none;
+}
+
+main.poetry #info {width: var(--width-poetry)}
+main.comedy #info  {width: var(--width-longline)}
+
+#message{
+	opacity:.2;
+}
+
+#info li {
+	font-size: .75rem;
+	line-height: .8rem;
+	text-decoration: none;
+	/* color: #360d0d; */
+}
+
+#firstline {text-indent:-4rem}
+
+#citation {
+	color: #ec0951;
+	font-feature-settings: "lnum", "tnum";
+	display: inline-block;
+	width: 4rem;
+	font-size: .65rem;
+	padding-right: .75rem;
+	text-align: right;
+}
+
+#entry {
+	font-weight: 700;
+	font-size: .9rem;
+	line-height: .9rem;
+}
+
+#pos{font-feature-settings: 'c2sc', 'smcp','onum';}
+
+em {
+	font-style: italic;
+	font-size: inherit;
+}
+
+b {
+	color: #CA1E47;
+	font-weight: 700;
+	font-size: .75rem;
+}
+
+/* ---------------------------- Footer ---------------------------------------------------------- */
+
+/* footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin:0;
+	padding:0 50px;
+	width: 100%;
+	left:0;
+	bottom:0;
+	background-color: var(--ros-dkblue);
+	height:75px;
+	color: white;
+}
+
+footer object {
+	margin-right: auto;
+	width: 86px;
+}
+
+footer a {
+	color:white;
+	text-decoration: none;
+	font-size: 18px;
+	display: inline-flex;
+} */
+
+/* ---------------------------- MAIN ---------------------------------------------------------- */
+main {
+	grid-area: Main;
+	width: 100%;
+	margin: 0 0 50px;
+}
+
+section {
+	width: calc(var(--width-prose) + 70px);
+	padding: 35px;
+	margin: 0 auto;
+	background-color: #ffffff;
+	border-radius: 5px; 
+}
+
+h3 {
+	/* text-align: center; */
+	font-weight: 450;
+	/* font-style: italic; */
+	margin-bottom: .75rem;
+	font-feature-settings: 'smcp','c2sc','onum';
+	border-bottom: 1.5px solid var(--ros-dkblue);
+}
+
+/* h3::before {
+	content: ')';
+	font-feature-settings: 'ss04';
+	color: var(--highlight);
+	margin-right: 12px;
+} */
+
+p {
+	line-height: 1.6rem;
+	position: relative;
+}
+
+p::before, .textnote::before {
+	position: absolute;
+	left: -5rem;
+	font-size: .75rem;
+	bottom: -1px;
+	color: #000000;
+	content: attr(data-ln);
+	width: 3rem;
+	font-feature-settings: "lnum", "tnum";
+	text-align: right;
+	text-indent: 0;
+	opacity:0.2;
+}
+
+p:hover::before {
+	opacity:1;
+	font-weight: 700;
+	color: var(--highlight);
+}
+
+.textnote::before {
+	content: "† " attr(data-ln);
+}
+
+p+p {
+	margin-top: 1rem;
+}
+
+section+section {
+	margin-top: 2rem;
+}
+
+main.elegiac [data-ln]:nth-child(odd){
+	text-indent:1.5rem;
+}
+main.poetry section {width: calc(var(--width-poetry) + 70px)}
+main.comedy section {width: calc(var(--width-longline) + 70px)}
+main.poetry p+p {margin-top:0;}
+
+.peo+.peo{
+	margin-top:0;
+}
+
+.sc{
+	font-feature-settings: "c2sc", "smcp";
+}
+
+.peo{
+	font-style: italic;
+}
+
+.grk{
+	font-family: 'Neohellenic', 'EB Garamond', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI';
+}
+
+.lac{
+	color:var(--highlight);
+	vertical-align: middle;
+	padding: 0 12px;
+}
+
+[data-cite]:hover{
+	color: var(--highlight);
+	cursor: pointer;
+}
+
+.para{
+	margin-top:1.5rem;
+}
+
+/* ---------------------------- RESPONSIVE ---------------------------------------------------- */
+
+@media screen and (max-width:1024px){
+
+	body {
+		background-color: #ffffff;
+		width:100%;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		gap: 0;
+		grid-template-areas: "Main" "Sidebar";
+	}
+	header {
+		grid-area: Sidebar;
+		position: sticky;
+		bottom:0;
+		width: 100%;
+		height: 50px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 35px;
+		background-color: var(--ros-dkblue);
+		z-index: 3;
+	}
+	nav {width: auto;}
+	nav hgroup h1, h2 {display: inline-block;}
+	nav hgroup {width: 50vw;}
+	nav input, nav label, nav ul {display:none;}
+	nav object {width: 75px;}
+	aside {
+		left: 0;
+		width: 100%
+	}
+	#info {width: 100%;padding-bottom:25px;}
+	#info li {font-size: .9rem;line-height: .9rem;}
+	section {
+		width: 100%;
+	}
+	#firstline {text-indent:0}
+	#citation {
+		width: auto;
+		text-align: left;
+	}
+	
+} /* close responsive bit */
